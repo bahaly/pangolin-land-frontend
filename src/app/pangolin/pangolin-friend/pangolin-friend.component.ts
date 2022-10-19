@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { PangolinService } from 'src/app/services/pangolin.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-pangolin-friend',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./pangolin-friend.component.css'],
 })
 export class PangolinFriendComponent implements OnInit {
-  public pangolins: any[] = [];
+  public pangolins: User[] = [];
   public part: number;
   public loading: boolean;
 
@@ -28,8 +29,10 @@ export class PangolinFriendComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.state.mode$.next('list');
-    this.pangolinSub = this.userService.pango$.subscribe((pango) => {
+    this.pangolinSub = this.userService.pango$.subscribe((pango: User[]) => {
       this.pangolins = pango;
+      console.log(this.pangolins);
+
       this.loading = false;
       console.log("subscription");
     });
@@ -42,11 +45,11 @@ export class PangolinFriendComponent implements OnInit {
   }
 
   deleteFriend(friendId){
-    this.userService
+    this.userService.deleteFriend(friendId)
   }
 
   onProductClicked(id: string) {
-    this.router.navigate(['/' + id]);
+    //this.router.navigate(['/' + id]);
   }
 
   ngOnDestroy() {

@@ -23,6 +23,8 @@ import { PangolinFriendComponent } from './pangolin/pangolin-friend/pangolin-fri
 
 import { AuthInterceptor } from 'interceptor/auth-interceptor';
 import { AuthGuard } from './services/auth-guard.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditRoleComponent } from './pangolin/edit-role/edit-role.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { AuthGuard } from './services/auth-guard.service';
     OnePangolinComponent,
     PangolinListComponent,
     HomeComponent,
-    PangolinFriendComponent
+    PangolinFriendComponent,
+    EditRoleComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { AuthGuard } from './services/auth-guard.service';
     BrowserAnimationsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, AuthGuard],
   bootstrap: [AppComponent]

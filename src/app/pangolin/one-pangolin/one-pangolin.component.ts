@@ -45,7 +45,7 @@ export class OnePangolinComponent implements OnInit, OnDestroy {
   }
 
   onGoBack() {
-    this.router.navigate(['/pangolins']);
+    this.router.navigate(['/pangolin']);
   }
 
   onModify() {

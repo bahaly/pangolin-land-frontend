@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class PangolinService {
   constructor(private router: Router, private http: HttpClient, private auth: AuthService) {}
 
   getPango() {
-    this.http.get('http://localhost:3000/api/user').subscribe(
+    this.http.get(environment.api+'user').subscribe(
       (data: any[]) => {
         if (data) {
           this.pango = data;
@@ -34,7 +35,24 @@ export class PangolinService {
     const data = {'friendId': friendId, 'userId': this.auth.userId}
     return new Promise((resolve, reject) => {
       this.http
-        .post('http://localhost:3000/api/user/friend', data)
+        .post(environment.api+'user/friend', data)
+        .subscribe(
+          (response) => {
+            resolve(response);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
+
+  editPangoRole(role){
+    const id = this.auth.userId;
+    const data = {'role': role};
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(environment.api+'user/'+id, data)
         .subscribe(
           (response) => {
             resolve(response);
@@ -47,7 +65,7 @@ export class PangolinService {
   }
 
   getPangoFriend(id: string) {
-    this.http.get('http://localhost:3000/api/user/friend/'+id).subscribe(
+    this.http.get(environment.api+'user/friend/'+id).subscribe(
       (data: any[]) => {
         if (data) {
           this.pango = data;
@@ -62,7 +80,7 @@ export class PangolinService {
 
   deleteFriend(friendId){
     const id = this.auth.userId
-    this.http.delete(`http://localhost:3000/api/user/${id}/${friendId}`).subscribe(
+    this.http.delete(`${environment.api}user/${id}/${friendId}`).subscribe(
       (data: any[]) => {
         if (data) {
           this.getPangoFriend(id);
@@ -80,7 +98,19 @@ export class PangolinService {
 
   getPangolinById(id: string) {
     return new Promise((resolve, reject) => {
-      this.http.get('http://localhost:3000/api/user/' + id).subscribe(
+      this.http.get(environment.api+'user/' + id).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  getConnectedPangolin() {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.api+'user/' + this.auth.userId).subscribe(
         (response) => {
           resolve(response);
         },
@@ -94,7 +124,7 @@ export class PangolinService {
   modifyPangolin(id: string, pangolin: any) {
     return new Promise((resolve, reject) => {
       this.http
-        .put('http://localhost:3000/api/user/' + id, pangolin)
+        .put(environment.api+'/user/' + id, pangolin)
         .subscribe(
           (response) => {
             resolve(response);

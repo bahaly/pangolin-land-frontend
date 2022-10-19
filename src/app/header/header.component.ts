@@ -3,6 +3,10 @@ import { Subscription } from 'rxjs';
 import { StateService } from '../services/state.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditRoleComponent } from '../pangolin/edit-role/edit-role.component';
+
 
 @Component({
   selector: 'app-header',
@@ -21,6 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private state: StateService,
               private auth: AuthService,
+              private dialogRef: MatDialog,
+              private _snackBar: MatSnackBar,
               private router: Router) { }
 
   ngOnInit() {
@@ -40,6 +46,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogout() {
     this.auth.logout();
     this.router.navigate(['/' + this.partString + '/auth/login']);
+  }
+
+  changeRole(){
+    let dialog = this.dialogRef.open(EditRoleComponent, {
+      panelClass: 'contact-form-dialog',
+    });
+    dialog.afterClosed().subscribe((res) => {
+      if(res){
+        this._snackBar.open('Role changé avec succès.', 'X');
+      }else{
+        this._snackBar.open('Désolé une erreur est survenue.','X');
+      }
+    })
   }
 
   onBackToParts() {

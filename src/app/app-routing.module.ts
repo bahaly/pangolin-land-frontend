@@ -25,8 +25,8 @@ const routes: Routes = [
       { path: 'all', component: PangolinListComponent , canActivate: [AuthGuard]},
       { path: 'friend', component: PangolinFriendComponent , canActivate: [AuthGuard]},
       { path: ':id', component: OnePangolinComponent , canActivate: [AuthGuard]},
-      { path: '**', redirectTo: 'pangolin/all' },
-      { path: '', pathMatch: 'full', component: PangolinListComponent },
+      { path: '**', redirectTo: 'pangolin/all'},
+      { path: '', pathMatch: 'full', component: PangolinListComponent,canActivate: [AuthGuard] },
     ]
   },
   { path: '', pathMatch: 'full', component: HomeComponent },

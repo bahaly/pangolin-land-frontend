@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +18,9 @@ export class AuthService {
     return new Promise<void>((resolve, reject) => {
       const userFormData = new FormData();
       userFormData.append('user', JSON.stringify(userData));
-      userFormData.append('image', image, 'nothing');
+      userFormData.append('image', image, userData.name);
       this.http
-        .post('http://localhost:3000/api/auth/signup', userFormData)
+        .post(environment.api+'auth/signup', userFormData)
         .subscribe(
           () => {
             this.login(userData.email, userData.password)
@@ -37,10 +38,14 @@ export class AuthService {
     });
   }
 
+  getUser(id): Observable<any> {
+    return this.http.get<any>(`${environment.api}users/${id}/`);
+  }
+
   login(email: string, password: string) {
     return new Promise<void>((resolve, reject) => {
       this.http
-        .post('http://localhost:3000/api/auth/login', {
+        .post(environment.api+'auth/login', {
           email: email,
           password: password,
         })
@@ -57,6 +62,8 @@ export class AuthService {
         );
     });
   }
+
+
 
   logout() {
     this.isAuth$.next(false);

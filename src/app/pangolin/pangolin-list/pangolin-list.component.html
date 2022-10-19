@@ -1,17 +1,16 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 <p class="text-center" *ngIf="pangolins.length <= 0 && !loading">Pas de pangolins !</p>
 <div class="stuff-grid" *ngIf="pangolins.length >= 0">
-  <div class="thing-pane" *ngFor="let pango of pangolins"
-    [ngStyle]="{'background-image': 'url(' + pango.imageUrl + ')'}" (click)="onProductClicked(pango._id)">
-    <div class="thing-info">
-      <h3>
-        {{ pango.name }}
-      </h3>
-      <h5>{{ pango.specie}}</h5>
+  <ng-container *ngFor="let pango of pangolins">
+    <div class="thing-pane" *ngIf="pango._id != userId"
+      [ngStyle]="{'background-image': 'url(' + pango.imageUrl + ')'}" >
+      <div class="thing-info">
+        <span (click)="onProductClicked(pango._id)">
+          <h3>{{ pango.name }}</h3>
+          <h5>{{ pango.specie}}</h5>
+        </span>
+        <h6 class="text-end" *ngIf="!friendList.includes(pango._id)"> <button (click)="addFriend(pango._id)" class="btn btn-sm btn-success"> Ajouter </button> </h6>
+      </div>
     </div>
-    <div>
-      <button (click)="addFriend(pango._id)" class="btn btn-md"> + </button>
-    </div>
-  </div>
+  </ng-container>
 </div>
-<!-- après ngFor normalement but [ngClass]="{'open': thing._id === chosenId}" -->

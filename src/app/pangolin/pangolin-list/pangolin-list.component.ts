@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 //import { StuffService } from '../../services/stuff.service';
 import { Subscription } from 'rxjs';
@@ -6,26 +6,32 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { PangolinService } from 'src/app/services/pangolin.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-pangolin-list',
   templateUrl: './pangolin-list.component.html',
   styleUrls: ['./pangolin-list.component.css'],
 })
-export class PangolinListComponent implements OnInit, OnDestroy {
+export class PangolinListComponent implements OnInit, AfterViewInit, OnDestroy {
   public pangolins: any[] = [];
   public part: number;
   public loading: boolean;
-
+  public userId: string;
+  public CurrentUser: User;
   private pangolinSub: Subscription;
   private partSub: Subscription;
+  public friendList : string[] = [];
 
   constructor(
     private state: StateService,
     private userService: PangolinService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
   ) {}
+
 
   ngOnInit() {
     this.loading = true;
@@ -37,11 +43,22 @@ export class PangolinListComponent implements OnInit, OnDestroy {
     this.partSub = this.state.part$.subscribe((part) => {
       this.part = part;
     });
+    this.userId = this.authService.userId
     this.userService.getPango();
   }
 
-  onProductClicked(id: string) {
+  ngAfterViewInit() {
+    this.userService.getConnectedPangolin().then(
+      (res:User) => {
+        this.CurrentUser = res
+        this.CurrentUser.friends.forEach((res) => this.friendList.push(res.friendId))
+        console.log(this.friendList);
+      }
+    )
+  }
 
+  onProductClicked(id: string) {
+    this.router.navigate(['/pangolin/' + id]);
   }
 
   addFriend(_id : string){
