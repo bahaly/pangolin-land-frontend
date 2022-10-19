@@ -1,0 +1,14 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading">
+  <button class="btn btn-link" (click)="onGoBack()"><< Retour</button>
+  <div class="single-thing-pane">
+    <img [src]="pangolins?.imageUrl" alt="">
+    <div class="single-thing-info">
+      <h1>{{ pangolins?.name }}</h1>
+      <h2 class="single-thing-price">{{ pangolins?.specie }}</h2>
+      <p>{{ pangolins?.email }}</p>
+      <button class="btn btn-success m-1" (click)="onModify()" [disabled]="part >= 3 && userId !== pangolins?.userId">Modifier</button>
+      <button class="btn btn-danger m-1" (click)="onDelete()" [disabled]="part >= 3 && userId !== pangolins?.userId">Supprimer</button>
+    </div>
+  </div>
+</div>

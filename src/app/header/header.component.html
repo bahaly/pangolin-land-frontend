@@ -1,0 +1,32 @@
+<header>
+  <h1 class="header-title">
+    PangolinLand
+  </h1>
+  <ul class="header-navigation">
+    <li class="header-navigation-item" *ngIf="isAuth">
+      <a class="header-link" routerLink="/pangolin/all" routerLinkActive="active">Les pangolins</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="isAuth">
+      <a class="header-link" routerLink="/pangolin/friend" routerLinkActive="active">Mes amis</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="isAuth">
+      <a class="header-link" style="cursor: pointer" (click)="onLogout()">DECONNEXION</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="!isAuth">
+      <a class="header-link" routerLink="/auth/login" routerLinkActive="active">CONNEXION</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="!isAuth">
+      <a class="header-link" routerLink="/auth/signup" routerLinkActive="active">INSCRIPTION</a>
+    </li>
+  </ul>
+  <ul class="header-navigation nav-end">
+    <li class="header-navigation-item font-italic">
+      <a class="header-link" style="cursor:pointer" (click)="onBackToParts()">RETOUR A L'INDEX</a>
+    </li>
+  </ul>
+</header>
+<div class="hero-image" *ngIf="mode === 'list'">
+  <h2 class="hero-text">
+    LE MEILLEUR CARNET D'ADRESSE
+  </h2>
+</div>
