@@ -62,6 +62,7 @@ export class PangolinListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addFriend(_id : string){
+
     this.userService.addPangoFriend(_id).then(
       (res) => this._snackBar.open("Youpi vous avez un nouvelle ami(e).","X",{verticalPosition: 'top'})
     ).catch(res =>  this._snackBar.open("Désolé une erreur est survenue.","X",{verticalPosition: 'top'}))

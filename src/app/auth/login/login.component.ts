@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     ).catch(
       (error) => {
         this.loading = false;
-        this.errorMessage = error.message;
+        this.errorMessage = "Veuillez verifier vos identifiant";
       }
     );
   }

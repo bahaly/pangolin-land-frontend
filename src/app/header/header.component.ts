@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if(res){
         this._snackBar.open('Role changé avec succès.', 'X');
       }else{
-        this._snackBar.open('Désolé une erreur est survenue.','X');
+        //this._snackBar.open('Désolé une erreur est survenue.','X');
       }
     })
   }
