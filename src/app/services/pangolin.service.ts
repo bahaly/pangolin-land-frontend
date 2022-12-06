@@ -32,6 +32,9 @@ export class PangolinService {
   }
 
   addPangoFriend(friendId){
+
+    console.log("addddd firndddd");
+
     const data = {'friendId': friendId, 'userId': this.auth.userId}
     return new Promise((resolve, reject) => {
       this.http

@@ -19,22 +19,36 @@ export class AuthService {
       const userFormData = new FormData();
       userFormData.append('user', JSON.stringify(userData));
       userFormData.append('image', image, userData.name);
-      this.http
-        .post(environment.api+'auth/signup', userFormData)
-        .subscribe(
-          () => {
-            this.login(userData.email, userData.password)
-              .then(() => {
-                resolve();
-              })
-              .catch((error) => {
-                reject(error);
-              });
-          },
-          (error) => {
-            reject(error);
-          }
-        );
+      this.http.post(environment.api + 'auth/signup', userFormData).subscribe(
+        () => {
+          this.login(userData.email, userData.password)
+            .then(() => {
+              resolve();
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  createFriend(userData, image) {
+    return new Promise<void>((resolve, reject) => {
+      const userFormData = new FormData();
+      userFormData.append('user', JSON.stringify(userData));
+      userFormData.append('image', image, userData.name);
+      this.http.post(environment.api + 'auth/signup', userFormData).subscribe(
+        (res: any) => {
+          //console.log(res);
+          resolve(res);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
     });
   }
 
@@ -45,7 +59,7 @@ export class AuthService {
   login(email: string, password: string) {
     return new Promise<void>((resolve, reject) => {
       this.http
-        .post(environment.api+'auth/login', {
+        .post(environment.api + 'auth/login', {
           email: email,
           password: password,
         })
@@ -62,8 +76,6 @@ export class AuthService {
         );
     });
   }
-
-
 
   logout() {
     this.isAuth$.next(false);

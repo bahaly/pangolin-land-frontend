@@ -10,6 +10,9 @@
       <a class="header-link" routerLink="/pangolin/friend" routerLinkActive="active">Mes amis</a>
     </li>
     <li class="header-navigation-item" *ngIf="isAuth">
+      <a class="header-link" routerLink="/pangolin/add-friend" routerLinkActive="active">Ajouter un ami</a>
+    </li>
+    <li class="header-navigation-item" *ngIf="isAuth">
       <a class="header-link" (click)="changeRole()" routerLinkActive="active">Mon role</a>
     </li>
     <li class="header-navigation-item" *ngIf="isAuth">

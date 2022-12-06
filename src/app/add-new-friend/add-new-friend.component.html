@@ -1,0 +1,52 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div class="col-sm-8 col-lg-4 offset-lg-4  offset-sm-2 mt-5" *ngIf="!loading">
+  <div class="card p-lg-4">
+    <form [formGroup]="signupForm">
+      <div>
+        <h6 class="text-muted">Identifiant <hr> </h6>
+      </div>
+      <div class="form-group mb-1">
+        <label for="name">Name</label>
+        <input type="name" id="name" formControlName="name" class="form-control">
+      </div>
+      <div class="form-group mb-1">
+        <label for="email">Adresse mail</label>
+        <input type="email" id="email" formControlName="email" class="form-control">
+      </div>
+      <div class="form-group mb-1">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" formControlName="password" class="form-control">
+      </div>
+      <div>
+        <h6  class="text-muted mt-3">Information complémentaire <hr> </h6>
+      </div>
+      <div>
+        <button class="btn btn-success" type="button" (click)="filePicker.click()">Ajouter image</button>
+        <input type="file" #filePicker (change)="onImagePick($event)">
+        <div class="image-preview  text-center" *ngIf="imagePreview">
+          <img  class="rounded-circle" [src]="imagePreview" alt="">
+        </div>
+      </div>
+      <div class="form-group mb-1">
+        <label for="role">Role</label>
+
+        <select aria-label="Sélectionner un rôle"  class="form-select" id="role" formControlName="role">
+          <option  *ngFor="let item of roleList" [value]="item">{{item}}</option>
+        </select>
+      </div>
+      <div class="form-group mb-1">
+        <label for="role">Espèce</label>
+
+        <select aria-label="Sélectionner un rôle"  class="form-select" id="role" formControlName="specie">
+          <option  *ngFor="let item of specieList" [value]="item">{{item}}</option>
+        </select>
+      </div>
+      <div class="form-group mb-1">
+        <label for="address">Contré</label>
+        <input type="texte" id="address" formControlName="address" class="form-control">
+      </div>
+      <button class="mt-3 btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Creer et ajouter l'ami</button>
+    </form>
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>

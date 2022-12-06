@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddNewFriendComponent } from './add-new-friend/add-new-friend.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
     children: [
       { path: 'all', component: PangolinListComponent , canActivate: [AuthGuard]},
       { path: 'friend', component: PangolinFriendComponent , canActivate: [AuthGuard]},
+      { path: 'add-friend', component: AddNewFriendComponent , canActivate: [AuthGuard]},
       { path: ':id', component: OnePangolinComponent , canActivate: [AuthGuard]},
       { path: '**', redirectTo: 'pangolin/all'},
       { path: '', pathMatch: 'full', component: PangolinListComponent,canActivate: [AuthGuard] },

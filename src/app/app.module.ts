@@ -25,6 +25,7 @@ import { AuthInterceptor } from 'interceptor/auth-interceptor';
 import { AuthGuard } from './services/auth-guard.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditRoleComponent } from './pangolin/edit-role/edit-role.component';
+import { AddNewFriendComponent } from './add-new-friend/add-new-friend.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EditRoleComponent } from './pangolin/edit-role/edit-role.component';
     PangolinListComponent,
     HomeComponent,
     PangolinFriendComponent,
-    EditRoleComponent
+    EditRoleComponent,
+    AddNewFriendComponent
   ],
   imports: [
     BrowserModule,
